@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- margin / padding -->
+    <dimen name="margin_little">4dp</dimen>
+    <dimen name="margin_small">8dp</dimen>
+    <dimen name="margin_medium">16dp</dimen>
+    <dimen name="margin_large">24dp</dimen>
+    <dimen name="margin_great">48dp</dimen>
+    <dimen name="margin_enormous">96dp</dimen>
+
+    <!-- text -->
+    <dimen name="text_small">12sp</dimen>
+    <dimen name="text_medium">16sp</dimen>
+    <dimen name="text_large">24sp</dimen>
+    <dimen name="text_big">32sp</dimen>
+    <dimen name="text_great">48sp</dimen>
+
+</resources>
