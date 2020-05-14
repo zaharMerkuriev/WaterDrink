@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">WaterBalance</string>
+
+    <!-- Dialog -->
+    <string name="dialog_button_ok">ОК</string>
+    <string name="dialog_button_cancel">Отменить</string>
+
+    <!-- Home Screen -->
+    <string name="home_screen_title">Главная</string>
+
+    <!-- Create User Screen -->
+    <string name="create_user_screen_title">Создать пользователя</string>
+    <string name="create_user_screen_greeting">Добро пожаловать</string>
+    <string name="create_user_screen_fill_parameters">Чтобы продолжить, укажите свои данные</string>
+    <string name="create_user_screen_name">Имя</string>
+    <string name="create_user_screen_age">Возраст</string>
+    <string name="create_user_screen_weight">Вес</string>
+    <string name="create_user_screen_active">Активность</string>
+    <string name="create_user_screen_next">Далее</string>
+
+</resources>

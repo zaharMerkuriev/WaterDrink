@@ -1,0 +1,96 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+
+    defaultConfig {
+        applicationId "ru.nsu.merkuriev.waterbalance"
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
+    compileOptions {
+        sourceCompatibility = "1.8"
+        targetCompatibility = "1.8"
+    }
+
+    dataBinding {
+        enabled true
+    }
+
+    androidExtensions {
+        experimental = true
+    }
+}
+
+dependencies {
+    final def activityVersion = '1.0.0'
+    final def appCompatVersion = "1.1.0"
+    final def archLifecycleVersion = "2.2.0"
+    final def ciceroneVersion = '5.0.0'
+    final def constraintLayoutVersion = "2.0.0-beta5"
+    final def coreKtxVersion = "1.2.0"
+    final def daggerVersion = '2.25.2'
+    final def fragmentVersion = '1.2.4'
+    final def materialVersion = "1.2.0-alpha06"
+    final def rxAndroidVersion = '2.1.1'
+    final def rxJavaVersion = '2.2.14'
+    final def rxKotlinVersion = '2.4.0'
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    //androidx
+    implementation "androidx.activity:activity-ktx:$activityVersion"
+    implementation "androidx.appcompat:appcompat:$appCompatVersion"
+    implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
+    implementation "androidx.core:core-ktx:$coreKtxVersion"
+    implementation "androidx.fragment:fragment-ktx:$fragmentVersion"
+    implementation "androidx.lifecycle:lifecycle-extensions:$archLifecycleVersion"
+    implementation "com.google.android.material:material:$materialVersion"
+
+    //RxJava
+    implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
+    implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
+    implementation "io.reactivex.rxjava2:rxkotlin:$rxKotlinVersion"
+
+    //dagger
+    implementation "com.google.dagger:dagger:$daggerVersion"
+    implementation "com.google.dagger:dagger-android:$daggerVersion"
+    implementation "com.google.dagger:dagger-android-support:$daggerVersion"
+    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
+    kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
+
+    //cicerone
+    implementation "ru.terrakok.cicerone:cicerone:$ciceroneVersion"
+
+    //test
+    testImplementation "junit:junit:4.12"
+    androidTestImplementation "androidx.test.ext:junit:1.1.1"
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+}

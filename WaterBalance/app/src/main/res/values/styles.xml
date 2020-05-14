@@ -1,0 +1,67 @@
+<resources>
+
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="Toolbar" parent="Widget.MaterialComponents.Toolbar.Primary" />
+
+    <style name="TextView">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="TextView.Greeting">
+        <item name="android:textSize">@dimen/text_large</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextView.Info">
+        <item name="android:textSize">@dimen/text_medium</item>
+    </style>
+
+    <style name="TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="hintEnabled">true</item>
+    </style>
+
+    <style name="TextInputEditText" parent="Widget.AppCompat.EditText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/margin_great</item>
+        <item name="android:paddingTop">@dimen/margin_small</item>
+        <item name="android:paddingBottom">@dimen/margin_small</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="TextInputEditText.Name">
+        <item name="android:inputType">text|textCapSentences</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <style name="TextInputEditText.Decimal">
+        <item name="android:maxLength">3</item>
+        <item name="android:inputType">numberDecimal</item>
+        <item name="android:digits">0123456789</item>
+    </style>
+
+    <style name="TextInputEditText.Decimal.Counter">
+        <item name="android:maxLength">5</item>
+        <item name="android:digits">0123456789.,</item>
+    </style>
+
+    <style name="TextInputEditText.Spinner">
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:editable">false</item>
+        <item name="android:paddingStart">14dp</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="Button" parent="Widget.MaterialComponents.Button">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+</resources>
