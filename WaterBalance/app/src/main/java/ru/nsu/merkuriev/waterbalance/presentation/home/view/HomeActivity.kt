@@ -20,6 +20,7 @@ class HomeActivity : BaseToolbarActivity<ActivityHomeBinding>() {
     override fun initToolbar() {
         super.initToolbar()
         setToolbarTitle(R.string.home_screen_title)
+        addItem(R.drawable.ic_settings)
     }
 
     override fun initUI() {
