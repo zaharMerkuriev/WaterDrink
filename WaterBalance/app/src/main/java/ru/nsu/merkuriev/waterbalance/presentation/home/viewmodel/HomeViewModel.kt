@@ -20,11 +20,14 @@ class HomeViewModel @Inject constructor(
 ) : BaseViewModel(router, schedulers) {
 
     private lateinit var user: User
-    private val remainingWater = MutableLiveData<Float>()
+
+    private val remainWater = MutableLiveData<Float>()
+    private val drinkWater = MutableLiveData<Float>()
 
     private val drinkWaterProportion = MutableLiveData<Float>()
 
-    fun getRemainingWater(): LiveData<Float> = remainingWater
+    fun getRemainWater(): LiveData<Float> = remainWater
+    fun getDrinkWater(): LiveData<Float> = drinkWater
     fun getDrinkWaterProportion(): LiveData<Float> = drinkWaterProportion
 
 
@@ -32,6 +35,11 @@ class HomeViewModel @Inject constructor(
         super.initialize()
 
         loadUser()
+    }
+
+    fun resetWaterBalance() {
+        updateDrinkWaterValue(0f)
+        calculateWaterBalance()
     }
 
     fun addDrinkWater(value: Float) {
@@ -57,10 +65,12 @@ class HomeViewModel @Inject constructor(
 
     private fun calculateWaterBalance() {
         val allWater = user.weight * WEIGHT_COEFFICIENT + user.activeType.waterSum
-        val drinkWater = getDrinkWaterValue()
+        val currentDrinkWater = getDrinkWaterValue()
 
-        remainingWater.value = max(allWater - drinkWater, 0f)
-        drinkWaterProportion.value = min(drinkWater / allWater * 100, 100f)
+        remainWater.value = max(allWater - currentDrinkWater, 0f)
+        drinkWater.value = getDrinkWaterValue()
+
+        drinkWaterProportion.value = min(currentDrinkWater / allWater * 100, 100f)
     }
 
     private fun getDrinkWaterValue() = prefs.getFloat(KEY_DRINK_WATER_VALUE, 0f)

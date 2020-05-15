@@ -16,10 +16,10 @@
                 android:type="linear">
                 <item
                     android:offset="0"
-                    android:color="#fff176" />
+                    android:color="#84ffff" />
                 <item
                     android:offset="1"
-                    android:color="#ffc107" />
+                    android:color="#00e5ff" />
             </gradient>
         </aapt:attr>
     </path>
