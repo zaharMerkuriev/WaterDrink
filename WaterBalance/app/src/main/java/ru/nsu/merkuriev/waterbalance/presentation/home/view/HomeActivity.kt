@@ -20,4 +20,13 @@ class HomeActivity : BaseToolbarActivity<ActivityHomeBinding>() {
         super.initToolbar()
         setToolbarTitle(R.string.home_screen_title)
     }
+
+    override fun initUI() {
+        super.initUI()
+
+        binding.fab.setOnClickListener {
+            binding.bottle.setLevel(binding.bottle.getLevel() + 5f)
+        }
+
+    }
 }

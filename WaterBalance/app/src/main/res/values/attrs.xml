@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ProgressView">
+        <attr name="progress_background" format="reference" />
+        <attr name="empty_background" format="reference" />
+        <attr name="progress_level" format="float" />
+    </declare-styleable>
+</resources>

@@ -24,5 +24,66 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/scroll"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/margin_medium">
+
+                    <TextView
+                        android:id="@+id/drink"
+                        style="@style/TextView.Home"
+                        android:layout_marginEnd="@dimen/margin_medium"
+                        android:gravity="center"
+                        android:text="@string/home_screen_drink"
+                        app:layout_constraintEnd_toStartOf="@id/bottle"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/bottle" />
+
+                    <TextView
+                        android:id="@+id/remain"
+                        style="@style/TextView.Home"
+                        android:layout_marginStart="@dimen/margin_medium"
+                        android:gravity="center"
+                        android:text="@string/home_screen_remain"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/bottle"
+                        app:layout_constraintTop_toTopOf="@id/bottle" />
+
+                    <ru.nsu.merkuriev.waterbalance.presentation.common.custom.ProgressView
+                        android:id="@+id/bottle"
+                        android:layout_width="50dp"
+                        android:layout_height="70dp"
+                        android:layout_marginTop="@dimen/margin_great"
+                        app:empty_background="@drawable/ic_bottle_empty"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:progress_background="@drawable/ic_bottle_full" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.core.widget.NestedScrollView>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:src="@drawable/ic_plus"
+                app:fabSize="normal"
+                app:layout_anchor="@id/scroll"
+                app:layout_anchorGravity="end|bottom" />
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -22,7 +22,6 @@ class CreateUserViewModel @Inject constructor(
     val name = MutableLiveData("")
     val weight = MutableLiveData("")
 
-
     private val isDataValid = MediatorLiveData<Boolean>().apply {
         combine(name, weight, selectedActiveType) { name, weight, activeType ->
             name.isNullOrBlank().not()
