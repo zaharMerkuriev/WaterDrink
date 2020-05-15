@@ -6,8 +6,8 @@ import androidx.lifecycle.observe
 import ru.nsu.merkuriev.waterbalance.R
 import ru.nsu.merkuriev.waterbalance.databinding.ActivitySettingsBinding
 import ru.nsu.merkuriev.waterbalance.domain.model.ActiveType
-import ru.nsu.merkuriev.waterbalance.presentation.common.custom.NonFilterableAdapter
 import ru.nsu.merkuriev.waterbalance.presentation.common.view.BaseToolbarActivity
+import ru.nsu.merkuriev.waterbalance.presentation.common.view.adapter.ActiveTypeAdapter
 import ru.nsu.merkuriev.waterbalance.presentation.settings.viewmodel.SettingsViewModel
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.android.pure.AppNavigator
@@ -37,15 +37,15 @@ class SettingsActivity : BaseToolbarActivity<ActivitySettingsBinding>() {
         binding.save.setOnClickListener { viewModel.save() }
 
         viewModel.getSelectedActiveType().observe(this) {
-            binding.activeType.setText(it.title, false)
+            binding.activeType.setText(getString(it.title), false)
         }
     }
 
     private fun initSpinner() {
         binding.activeType.setAdapter(
-            NonFilterableAdapter(
+            ActiveTypeAdapter(
                 this,
-                android.R.layout.simple_dropdown_item_1line,
+                R.layout.item_active_type,
                 activeTypes
             )
         )

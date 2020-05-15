@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">WaterBalance</string>
+    <string name="app_name" translatable="false">Water Balance</string>
 
     <!-- Dialog -->
     <string name="dialog_button_ok">ОК</string>
@@ -9,6 +9,10 @@
     <string name="user_name">Имя</string>
     <string name="user_weight">Вес</string>
     <string name="user_active">Активность</string>
+    <string name="active_type_no" translatable="false" />
+    <string name="active_type_lazy">Ленивый</string>
+    <string name="active_type_middle">Средняя активность</string>
+    <string name="active_type_active">Активный</string>
 
     <!-- Home Screen -->
     <string name="home_screen_title">Главная</string>

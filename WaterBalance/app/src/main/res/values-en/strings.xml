@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Water Balance</string>
+
+    <!-- Dialog -->
+    <string name="dialog_button_ok">Ok</string>
+    <string name="dialog_button_cancel">Cancel</string>
+
+    <!-- Common -->
+    <string name="user_name">Name</string>
+    <string name="user_weight">Weight</string>
+    <string name="user_active">Activity</string>
+    <string name="active_type_lazy">Lazy</string>
+    <string name="active_type_middle">Middle</string>
+    <string name="active_type_active">Active</string>
+
+    <!-- Home Screen -->
+    <string name="home_screen_title">Home</string>
+    <string name="home_screen_drink">Drink</string>
+    <string name="home_screen_remain">Remain</string>
+    <string name="home_screen_value">%1$.2f oz</string>
+    <string name="home_screen_dialog_reset_message">Do you want to clear data for today?</string>
+    <string name="home_screen_dialog_reset_title">Reset statistics for today</string>
+
+    <!-- Create User Screen -->
+    <string name="create_user_screen_title">Create user</string>
+    <string name="create_user_screen_greeting">Welcome</string>
+    <string name="create_user_screen_fill_parameters">Enter data for continue</string>
+    <string name="create_user_screen_next">Next</string>
+
+    <!-- Settings Screen -->
+    <string name="settings_screen_title">Settings</string>
+    <string name="settings_screen_save">Save</string>
+</resources>

@@ -5,8 +5,8 @@ import androidx.activity.viewModels
 import ru.nsu.merkuriev.waterbalance.R
 import ru.nsu.merkuriev.waterbalance.databinding.ActivityCreateUserBinding
 import ru.nsu.merkuriev.waterbalance.domain.model.ActiveType
-import ru.nsu.merkuriev.waterbalance.presentation.common.custom.NonFilterableAdapter
 import ru.nsu.merkuriev.waterbalance.presentation.common.view.BaseToolbarActivity
+import ru.nsu.merkuriev.waterbalance.presentation.common.view.adapter.ActiveTypeAdapter
 import ru.nsu.merkuriev.waterbalance.presentation.create_user.viewmodel.CreateUserViewModel
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.android.pure.AppNavigator
@@ -37,9 +37,9 @@ class CreateUserActivity : BaseToolbarActivity<ActivityCreateUserBinding>() {
 
     private fun initSpinner() {
         binding.activeType.setAdapter(
-            NonFilterableAdapter(
+            ActiveTypeAdapter(
                 this,
-                android.R.layout.simple_dropdown_item_1line,
+                R.layout.item_active_type,
                 activeTypes
             )
         )
