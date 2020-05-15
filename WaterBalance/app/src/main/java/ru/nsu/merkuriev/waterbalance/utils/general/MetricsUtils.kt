@@ -1,4 +1,4 @@
-package ru.nsu.merkuriev.waterbalance.utils.ui
+package ru.nsu.merkuriev.waterbalance.utils.general
 
 import android.content.res.Resources
 import android.os.Build
@@ -10,7 +10,10 @@ object MetricsUtils {
     private val ENGLISH_US_LOCALE = Locale.US
 
     fun convertOunceToMilliliterIfNecessary(value: Float) =
-        if (isEnglishUsLocale(getDeviceLocale())) {
+        if (isEnglishUsLocale(
+                getDeviceLocale()
+            )
+        ) {
             value * MILLILITER_IN_OUNCE
         } else {
             value
@@ -18,7 +21,10 @@ object MetricsUtils {
 
 
     fun convertMilliliterToOunceIfNecessary(value: Float) =
-        if (isEnglishUsLocale(getDeviceLocale())) {
+        if (isEnglishUsLocale(
+                getDeviceLocale()
+            )
+        ) {
             value / MILLILITER_IN_OUNCE
         } else {
             value

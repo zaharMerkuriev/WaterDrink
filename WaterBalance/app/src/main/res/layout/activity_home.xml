@@ -54,7 +54,7 @@
 
                     <TextView
                         android:id="@+id/drink_value"
-                        style="@style/TextView.Home.Value"
+                        style="@style/TextView.Home.SubTitle"
                         android:layout_marginEnd="@dimen/margin_medium"
                         android:gravity="center"
                         android:text="@{@string/home_screen_value(model.drinkWater)}"
@@ -74,13 +74,54 @@
 
                     <TextView
                         android:id="@+id/remain_value"
-                        style="@style/TextView.Home.Value"
+                        style="@style/TextView.Home.SubTitle"
                         android:layout_marginStart="@dimen/margin_medium"
                         android:gravity="center"
                         android:text="@{@string/home_screen_value(model.remainWater)}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/bottle"
                         app:layout_constraintTop_toBottomOf="@id/remain" />
+
+                    <TextView
+                        android:id="@+id/notifications"
+                        style="@style/TextView.Home"
+                        android:layout_marginTop="@dimen/margin_great"
+                        android:text="@string/home_screen_notifications"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/bottle" />
+
+                    <TextView
+                        android:id="@+id/morning_title"
+                        style="@style/TextView.Home"
+                        android:layout_width="wrap_content"
+                        android:text="@string/home_screen_morning"
+                        app:layout_constraintBottom_toBottomOf="@id/morning_checkbox"
+                        app:layout_constraintEnd_toStartOf="@id/morning_time"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/morning_checkbox" />
+
+                    <TextView
+                        android:id="@+id/morning_time"
+                        style="@style/TextView.Home.Time"
+                        android:layout_height="0dp"
+                        android:gravity="center_vertical"
+                        android:paddingStart="@dimen/text_medium"
+                        android:paddingEnd="@dimen/text_medium"
+                        android:text="@{@string/home_screen_time_value(model.morningHour, model.morningMinute)}"
+                        app:layout_constraintBottom_toBottomOf="@id/morning_title"
+                        app:layout_constraintEnd_toStartOf="@id/morning_checkbox"
+                        app:layout_constraintStart_toEndOf="@id/morning_title"
+                        app:layout_constraintTop_toTopOf="@id/morning_title"
+                        tools:text="10:30" />
+
+                    <CheckBox
+                        android:id="@+id/morning_checkbox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/text_medium"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/notifications" />
 
                     <ru.nsu.merkuriev.waterbalance.presentation.common.custom.ProgressView
                         android:id="@+id/bottle"

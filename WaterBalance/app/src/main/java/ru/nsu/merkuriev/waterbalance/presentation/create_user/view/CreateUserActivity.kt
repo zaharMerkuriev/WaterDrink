@@ -2,6 +2,7 @@ package ru.nsu.merkuriev.waterbalance.presentation.create_user.view
 
 import android.widget.ArrayAdapter
 import androidx.activity.viewModels
+import androidx.lifecycle.observe
 import ru.nsu.merkuriev.waterbalance.R
 import ru.nsu.merkuriev.waterbalance.databinding.ActivityCreateUserBinding
 import ru.nsu.merkuriev.waterbalance.domain.model.ActiveType
@@ -33,6 +34,10 @@ class CreateUserActivity : BaseToolbarActivity<ActivityCreateUserBinding>() {
         binding.next.setOnClickListener { viewModel.onNextClick() }
 
         initSpinner()
+
+        viewModel.getSelectedActiveType().observe(this) {
+            binding.activeType.setText(getString(it.title), false)
+        }
     }
 
     private fun initSpinner() {

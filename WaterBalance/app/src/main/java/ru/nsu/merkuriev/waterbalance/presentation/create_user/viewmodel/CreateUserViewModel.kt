@@ -1,9 +1,9 @@
 package ru.nsu.merkuriev.waterbalance.presentation.create_user.viewmodel
 
-import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
+import ru.nsu.merkuriev.waterbalance.data.repository.SharedPreferencesRepository
 import ru.nsu.merkuriev.waterbalance.data.repository.UserRepository
 import ru.nsu.merkuriev.waterbalance.domain.model.ActiveType
 import ru.nsu.merkuriev.waterbalance.domain.model.User
@@ -17,7 +17,7 @@ import javax.inject.Inject
 class CreateUserViewModel @Inject constructor(
     router: Router,
     rxSchedulers: RxSchedulers,
-    private val prefs: SharedPreferences,
+    private val prefsRepository: SharedPreferencesRepository,
     private val repository: UserRepository
 ) : BaseViewModel(router, rxSchedulers) {
 
@@ -34,6 +34,7 @@ class CreateUserViewModel @Inject constructor(
     }
 
     fun getIsDataValid(): LiveData<Boolean> = isDataValid
+    fun getSelectedActiveType(): LiveData<ActiveType> = selectedActiveType
 
     override fun initialize() {
         super.initialize()
@@ -65,17 +66,13 @@ class CreateUserViewModel @Inject constructor(
     }
 
     private fun handleSuccessCreation() {
-        prefs.edit().putBoolean(KEY_FIRST_OPEN, false).apply()
+        prefsRepository.setIsAppFirstOpen(false)
         router.newRootScreen(HomeScreen())
     }
 
     private fun checkIsFirstOpen() {
-        if (prefs.getBoolean(KEY_FIRST_OPEN, true).not()) {
+        if (prefsRepository.isAppFirstOpen().not()) {
             router.newRootScreen(HomeScreen())
         }
-    }
-
-    companion object {
-        private const val KEY_FIRST_OPEN = "KEY_FIRST_OPEN"
     }
 }

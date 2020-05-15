@@ -17,6 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".presentation.settings.view.SettingsActivity" />
+
+        <receiver android:name=".presentation.receiver.WaterBalanceBroadcastReceiver" />
     </application>
 
 </manifest>

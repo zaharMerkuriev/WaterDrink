@@ -1,9 +1,11 @@
 package ru.nsu.merkuriev.waterbalance.di
 
 import android.content.Context
+import android.content.SharedPreferences
 import androidx.room.Room
 import dagger.Module
 import dagger.Provides
+import ru.nsu.merkuriev.waterbalance.data.repository.SharedPreferencesRepository
 import ru.nsu.merkuriev.waterbalance.data.repository.UserRepository
 import ru.nsu.merkuriev.waterbalance.data.source.database.WaterBalanceDataBase
 import ru.nsu.merkuriev.waterbalance.utils.rx.RxSchedulers
@@ -21,6 +23,11 @@ class CommonModule {
     @Singleton
     fun provideSharedPreferences(context: Context) =
         context.getSharedPreferences("water_balance_prefs", Context.MODE_PRIVATE)
+
+    @Provides
+    @Singleton
+    fun provideSharedPreferencesRepository(sharedPreferences: SharedPreferences) =
+        SharedPreferencesRepository(sharedPreferences)
 
     @Provides
     @Singleton

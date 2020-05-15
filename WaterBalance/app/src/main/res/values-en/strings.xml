@@ -32,4 +32,9 @@
     <!-- Settings Screen -->
     <string name="settings_screen_title">Settings</string>
     <string name="settings_screen_save">Save</string>
+    <string name="home_screen_notifications">Notifications</string>
+    <string name="home_screen_morning">Morning</string>
+    <string name="home_screen_evening">Evening</string>
+    <string name="home_screen_day">Day</string>
+    <string name="notification_title">Time to drink water</string>
 </resources>

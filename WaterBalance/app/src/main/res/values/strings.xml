@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name" translatable="false">Water Balance</string>
+    <string name="water_balance_channel" translatable="false">water_balance_channel</string>
+
+    <string name="notification_title">Время пить воду</string>
 
     <!-- Dialog -->
     <string name="dialog_button_ok">ОК</string>
@@ -18,6 +21,11 @@
     <string name="home_screen_title">Главная</string>
     <string name="home_screen_drink">Выпито</string>
     <string name="home_screen_remain">Осталось</string>
+    <string name="home_screen_notifications">Уведомления</string>
+    <string name="home_screen_morning">Утро</string>
+    <string name="home_screen_day">День</string>
+    <string name="home_screen_evening">Вечер</string>
+    <string name="home_screen_time_value" translatable="false">%1$s:%2$s</string>
     <string name="home_screen_value">%1$.2f мл</string>
     <string name="home_screen_dialog_add_water">Добавить, мл</string>
     <string name="home_screen_dialog_reset_title">Сброс статистики за сегодня</string>

@@ -31,9 +31,15 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="TextView.Home.Value">
+    <style name="TextView.Home.SubTitle">
         <item name="android:textSize">@dimen/text_medium</item>
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextView.Home.Time">
+        <item name="android:textSize">@dimen/text_x_medium</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
     </style>
 
     <style name="TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">

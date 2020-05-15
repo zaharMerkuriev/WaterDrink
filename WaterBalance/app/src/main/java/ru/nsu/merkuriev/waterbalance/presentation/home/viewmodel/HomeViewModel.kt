@@ -1,14 +1,18 @@
 package ru.nsu.merkuriev.waterbalance.presentation.home.viewmodel
 
-import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import ru.nsu.merkuriev.waterbalance.data.repository.SharedPreferencesRepository
 import ru.nsu.merkuriev.waterbalance.data.repository.UserRepository
+import ru.nsu.merkuriev.waterbalance.domain.model.NotificationData
+import ru.nsu.merkuriev.waterbalance.domain.model.NotificationType
 import ru.nsu.merkuriev.waterbalance.domain.model.User
 import ru.nsu.merkuriev.waterbalance.presentation.SettingsScreen
 import ru.nsu.merkuriev.waterbalance.presentation.common.viewmodel.BaseViewModel
+import ru.nsu.merkuriev.waterbalance.utils.extensions.toIntOrZero
+import ru.nsu.merkuriev.waterbalance.utils.general.MetricsUtils
+import ru.nsu.merkuriev.waterbalance.utils.general.TimeUtils
 import ru.nsu.merkuriev.waterbalance.utils.rx.RxSchedulers
-import ru.nsu.merkuriev.waterbalance.utils.ui.MetricsUtils
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 import kotlin.math.max
@@ -17,7 +21,7 @@ import kotlin.math.min
 class HomeViewModel @Inject constructor(
     router: Router,
     schedulers: RxSchedulers,
-    private val prefs: SharedPreferences,
+    private val prefsRepository: SharedPreferencesRepository,
     private val repository: UserRepository
 ) : BaseViewModel(router, schedulers) {
 
@@ -28,19 +32,41 @@ class HomeViewModel @Inject constructor(
 
     private val drinkWaterProportion = MutableLiveData<Float>()
 
+    private val morningHour = MutableLiveData<String>()
+    private val morningMinute = MutableLiveData<String>()
+    private var isMorningEnabled = false
+
     fun getRemainWater(): LiveData<Float> = remainWater
     fun getDrinkWater(): LiveData<Float> = drinkWater
     fun getDrinkWaterProportion(): LiveData<Float> = drinkWaterProportion
 
+    fun getMorningHour(): LiveData<String> = morningHour
+    fun getMorningMinute(): LiveData<String> = morningMinute
 
     override fun initialize() {
         super.initialize()
 
+        initNotificationsTimes()
         loadUser()
     }
 
+    fun getNotificationData(notificationType: NotificationType) =
+        when (notificationType) {
+            NotificationType.MORNING -> NotificationData(
+                notificationType,
+                getMorningHour().value.toIntOrZero(),
+                getMorningMinute().value.toIntOrZero()
+            )
+            else -> NotificationData(
+                notificationType,
+                getMorningHour().value.toIntOrZero(),
+                getMorningMinute().value.toIntOrZero()
+            )
+        }
+
+
     fun resetWaterBalance() {
-        updateDrinkWaterValue(0f)
+        prefsRepository.setDrinkWaterValue(0f)
         calculateWaterBalance()
     }
 
@@ -48,7 +74,7 @@ class HomeViewModel @Inject constructor(
      * Add water in milliliters
      */
     fun addDrinkWater(value: Float) {
-        updateDrinkWaterValue(getDrinkWaterValue() + value)
+        prefsRepository.setDrinkWaterValue(prefsRepository.getDrinkWaterValue() + value)
         calculateWaterBalance()
     }
 
@@ -72,24 +98,64 @@ class HomeViewModel @Inject constructor(
         )
     }
 
+    fun setTime(hour: Int, minute: Int, notificationType: NotificationType) {
+        when (notificationType) {
+            NotificationType.MORNING -> {
+                setHourAndMinute(morningHour, morningMinute, hour, minute)
+                prefsRepository.setMorningHour(hour)
+                prefsRepository.setMorningMinute(minute)
+            }
+        }
+    }
+
+    fun setNotificationTypeEnabled(value: Boolean, notificationType: NotificationType) {
+        when (notificationType) {
+            NotificationType.MORNING -> {
+                isMorningEnabled = value
+                prefsRepository.setMorningEnabled(value)
+            }
+        }
+    }
+
+    fun isNotificationTypeEnabled(notificationType: NotificationType) =
+        when (notificationType) {
+            NotificationType.MORNING -> isMorningEnabled
+            else -> isMorningEnabled
+        }
+
+
+    private fun setHourAndMinute(
+        hourSource: MutableLiveData<String>,
+        minuteSource: MutableLiveData<String>,
+        hour: Int,
+        minute: Int
+    ) {
+        hourSource.value = TimeUtils.formatTimeIntToString24(hour)
+        minuteSource.value = TimeUtils.formatTimeIntToString24(minute)
+    }
+
+    private fun initNotificationsTimes() {
+        setTime(
+            prefsRepository.getMorningHour(),
+            prefsRepository.getMorningMinute(),
+            NotificationType.MORNING
+        )
+        isMorningEnabled = prefsRepository.isMorningAlarmEnabled()
+    }
+
     private fun calculateWaterBalance() {
         val allWater = user.weight * WEIGHT_COEFFICIENT + user.activeType.waterSum
-        val currentDrinkWater = getDrinkWaterValue()
+        val currentDrinkWater = prefsRepository.getDrinkWaterValue()
 
         remainWater.value =
             MetricsUtils.convertMilliliterToOunceIfNecessary(max(allWater - currentDrinkWater, 0f))
-        drinkWater.value = MetricsUtils.convertMilliliterToOunceIfNecessary(getDrinkWaterValue())
+        drinkWater.value =
+            MetricsUtils.convertMilliliterToOunceIfNecessary(prefsRepository.getDrinkWaterValue())
 
         drinkWaterProportion.value = min(currentDrinkWater / allWater * 100, 100f)
     }
 
-    private fun getDrinkWaterValue() = prefs.getFloat(KEY_DRINK_WATER_VALUE, 0f)
-
-    private fun updateDrinkWaterValue(value: Float) =
-        prefs.edit().putFloat(KEY_DRINK_WATER_VALUE, value).apply()
-
     companion object {
-        private const val KEY_DRINK_WATER_VALUE = "KEY_DRINK_WATER_VALUE"
         private const val WEIGHT_COEFFICIENT = 30f
     }
 }
