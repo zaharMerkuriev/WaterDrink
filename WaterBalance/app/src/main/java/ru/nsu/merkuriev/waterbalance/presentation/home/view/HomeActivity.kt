@@ -1,6 +1,7 @@
 package ru.nsu.merkuriev.waterbalance.presentation.home.view
 
 import androidx.activity.viewModels
+import androidx.lifecycle.observe
 import ru.nsu.merkuriev.waterbalance.R
 import ru.nsu.merkuriev.waterbalance.databinding.ActivityHomeBinding
 import ru.nsu.merkuriev.waterbalance.presentation.common.view.BaseToolbarActivity
@@ -25,8 +26,11 @@ class HomeActivity : BaseToolbarActivity<ActivityHomeBinding>() {
         super.initUI()
 
         binding.fab.setOnClickListener {
-            binding.bottle.setLevel(binding.bottle.getLevel() + 5f)
+            viewModel.addDrinkWater(100f)
         }
 
+        viewModel.getDrinkWaterProportion().observe(this) {
+            binding.bottle.setLevel(it)
+        }
     }
 }

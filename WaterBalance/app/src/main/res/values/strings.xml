@@ -9,6 +9,7 @@
     <string name="home_screen_title">Главная</string>
     <string name="home_screen_drink">Выпито</string>
     <string name="home_screen_remain">Осталось</string>
+    <string name="home_screen_remain_value">%1$.2f мл</string>
 
     <!-- Create User Screen -->
     <string name="create_user_screen_title">Создать пользователя</string>

@@ -62,6 +62,16 @@
                         app:layout_constraintStart_toEndOf="@id/bottle"
                         app:layout_constraintTop_toTopOf="@id/bottle" />
 
+                    <TextView
+                        android:id="@+id/remain_value"
+                        style="@style/TextView.Home.Value"
+                        android:layout_marginStart="@dimen/margin_medium"
+                        android:gravity="center"
+                        android:text="@{@string/home_screen_remain_value(model.remainingWater)}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/bottle"
+                        app:layout_constraintTop_toBottomOf="@id/remain" />
+
                     <ru.nsu.merkuriev.waterbalance.presentation.common.custom.ProgressView
                         android:id="@+id/bottle"
                         android:layout_width="50dp"

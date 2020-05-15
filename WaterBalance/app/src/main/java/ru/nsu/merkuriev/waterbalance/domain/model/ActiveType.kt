@@ -2,12 +2,12 @@ package ru.nsu.merkuriev.waterbalance.domain.model
 
 enum class ActiveType(
     val title: String,
-    val waterSum: Double
+    val waterSum: Float
 ) {
-    NO("", 0.0),
-    LAZY("Ленивый", 0.3),
-    MIDDLE("Средняя активность", 0.9),
-    ACTIVE("Активный", 1.5);
+    NO("", 0f),
+    LAZY("Ленивый", 300f),
+    MIDDLE("Средняя активность", 600f),
+    ACTIVE("Активный", 900f);
 
     override fun toString(): String {
         return title

@@ -4,7 +4,9 @@ import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
+import ru.nsu.merkuriev.waterbalance.data.repository.UserRepository
 import ru.nsu.merkuriev.waterbalance.domain.model.ActiveType
+import ru.nsu.merkuriev.waterbalance.domain.model.User
 import ru.nsu.merkuriev.waterbalance.presentation.HomeScreen
 import ru.nsu.merkuriev.waterbalance.presentation.common.viewmodel.BaseViewModel
 import ru.nsu.merkuriev.waterbalance.utils.extensions.combine
@@ -15,7 +17,8 @@ import javax.inject.Inject
 class CreateUserViewModel @Inject constructor(
     router: Router,
     rxSchedulers: RxSchedulers,
-    private val prefs: SharedPreferences
+    private val prefs: SharedPreferences,
+    private val repository: UserRepository
 ) : BaseViewModel(router, rxSchedulers) {
 
     private val selectedActiveType = MutableLiveData(ActiveType.NO)
@@ -38,12 +41,32 @@ class CreateUserViewModel @Inject constructor(
     }
 
     fun onNextClick() {
-        prefs.edit().putBoolean(KEY_FIRST_OPEN, false).apply()
-        router.newRootScreen(HomeScreen())
+        disposable.add(
+            repository.createUser(
+                User(
+                    name.value.orEmpty(),
+                    weight.value.orEmpty().toFloatOrNull() ?: 0f,
+                    selectedActiveType.value ?: ActiveType.NO
+                )
+            ).compose(schedulers.fromIOToMainTransformerCompletable())
+                .subscribe(
+                    {
+                        handleSuccessCreation()
+                    },
+                    {
+
+                    }
+                )
+        )
     }
 
     fun setSelectedActiveType(activeType: ActiveType) {
         selectedActiveType.value = activeType
+    }
+
+    private fun handleSuccessCreation() {
+        prefs.edit().putBoolean(KEY_FIRST_OPEN, false).apply()
+        router.newRootScreen(HomeScreen())
     }
 
     private fun checkIsFirstOpen() {
