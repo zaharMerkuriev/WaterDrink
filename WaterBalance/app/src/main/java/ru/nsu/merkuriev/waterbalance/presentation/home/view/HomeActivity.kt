@@ -21,7 +21,7 @@ class HomeActivity : BaseToolbarActivity<ActivityHomeBinding>() {
         super.initToolbar()
         setToolbarTitle(R.string.home_screen_title)
 
-        addItem(R.drawable.ic_settings)
+        addItem(R.drawable.ic_settings, action = { viewModel.openSettingScreen() })
         addItem(R.drawable.ic_update, action = { showResetWaterBalanceDialog() })
     }
 
@@ -36,6 +36,11 @@ class HomeActivity : BaseToolbarActivity<ActivityHomeBinding>() {
         viewModel.getDrinkWaterProportion().observe(this) {
             binding.bottle.setLevel(it)
         }
+    }
+
+    override fun onResumeFragments() {
+        super.onResumeFragments()
+        viewModel.loadUser()
     }
 
     private fun showResetWaterBalanceDialog() {

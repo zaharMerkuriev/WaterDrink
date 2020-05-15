@@ -9,6 +9,8 @@ import ru.nsu.merkuriev.waterbalance.presentation.create_user.di.CreateUserModul
 import ru.nsu.merkuriev.waterbalance.presentation.create_user.view.CreateUserActivity
 import ru.nsu.merkuriev.waterbalance.presentation.home.di.HomeModule
 import ru.nsu.merkuriev.waterbalance.presentation.home.view.HomeActivity
+import ru.nsu.merkuriev.waterbalance.presentation.settings.di.SettingsModule
+import ru.nsu.merkuriev.waterbalance.presentation.settings.view.SettingsActivity
 
 @Module
 abstract class UIModule {
@@ -22,4 +24,8 @@ abstract class UIModule {
     @ActivityScope
     @ContributesAndroidInjector(modules = [CreateUserModule::class])
     abstract fun contributeCreateUserActivity(): CreateUserActivity
+
+    @ActivityScope
+    @ContributesAndroidInjector(modules = [SettingsModule::class])
+    abstract fun contributeSettingsActivity(): SettingsActivity
 }

@@ -13,6 +13,8 @@ import ru.nsu.merkuriev.waterbalance.databinding.ItemToolbarBinding
 
 abstract class BaseToolbarActivity<Binding : ViewDataBinding> : BaseActivity<Binding>() {
 
+    private var isNavigationBackEnabled = false
+
     override fun initUI() {
         super.initUI()
         initToolbar()
@@ -25,6 +27,11 @@ abstract class BaseToolbarActivity<Binding : ViewDataBinding> : BaseActivity<Bin
 
     protected fun setToolbarTitle(@StringRes title: Int) {
         supportActionBar?.title = getString(title)
+    }
+
+    protected fun setNavigationBack(show: Boolean) {
+        isNavigationBackEnabled = show
+        supportActionBar?.setDisplayHomeAsUpEnabled(isNavigationBackEnabled)
     }
 
     protected fun addItem(
@@ -49,5 +56,12 @@ abstract class BaseToolbarActivity<Binding : ViewDataBinding> : BaseActivity<Bin
 
             addView(binding.root)
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        if (isNavigationBackEnabled) {
+            onBackPressed()
+        }
+        return super.onSupportNavigateUp()
     }
 }

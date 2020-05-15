@@ -10,6 +10,8 @@ class UserRepository(
 
     fun createUser(user: User) = dataBase.userDao().insert(convertUserToDataBaseUser(user))
 
+    fun updateUser(user: User) = dataBase.userDao().update(convertUserToDataBaseUser(user))
+
     fun getUser() = dataBase.userDao().getUser(COMMON_USER_ID).map { it.parse() }
 
     private fun convertUserToDataBaseUser(user: User) =

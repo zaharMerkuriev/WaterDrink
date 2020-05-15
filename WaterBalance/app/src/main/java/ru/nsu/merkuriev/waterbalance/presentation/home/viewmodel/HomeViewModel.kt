@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import ru.nsu.merkuriev.waterbalance.data.repository.UserRepository
 import ru.nsu.merkuriev.waterbalance.domain.model.User
+import ru.nsu.merkuriev.waterbalance.presentation.SettingsScreen
 import ru.nsu.merkuriev.waterbalance.presentation.common.viewmodel.BaseViewModel
 import ru.nsu.merkuriev.waterbalance.utils.rx.RxSchedulers
 import ru.terrakok.cicerone.Router
@@ -47,7 +48,11 @@ class HomeViewModel @Inject constructor(
         calculateWaterBalance()
     }
 
-    private fun loadUser() {
+    fun openSettingScreen() {
+        router.navigateTo(SettingsScreen())
+    }
+
+    fun loadUser() {
         disposable.add(
             repository.getUser()
                 .compose(schedulers.fromIOToMainTransformerSingle<User>())
