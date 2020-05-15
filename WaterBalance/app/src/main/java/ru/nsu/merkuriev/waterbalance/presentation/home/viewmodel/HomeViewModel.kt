@@ -8,6 +8,7 @@ import ru.nsu.merkuriev.waterbalance.domain.model.User
 import ru.nsu.merkuriev.waterbalance.presentation.SettingsScreen
 import ru.nsu.merkuriev.waterbalance.presentation.common.viewmodel.BaseViewModel
 import ru.nsu.merkuriev.waterbalance.utils.rx.RxSchedulers
+import ru.nsu.merkuriev.waterbalance.utils.ui.MetricsUtils
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 import kotlin.math.max
@@ -43,6 +44,9 @@ class HomeViewModel @Inject constructor(
         calculateWaterBalance()
     }
 
+    /**
+     * Add water in milliliters
+     */
     fun addDrinkWater(value: Float) {
         updateDrinkWaterValue(getDrinkWaterValue() + value)
         calculateWaterBalance()
@@ -72,8 +76,9 @@ class HomeViewModel @Inject constructor(
         val allWater = user.weight * WEIGHT_COEFFICIENT + user.activeType.waterSum
         val currentDrinkWater = getDrinkWaterValue()
 
-        remainWater.value = max(allWater - currentDrinkWater, 0f)
-        drinkWater.value = getDrinkWaterValue()
+        remainWater.value =
+            MetricsUtils.convertMilliliterToOunceIfNecessary(max(allWater - currentDrinkWater, 0f))
+        drinkWater.value = MetricsUtils.convertMilliliterToOunceIfNecessary(getDrinkWaterValue())
 
         drinkWaterProportion.value = min(currentDrinkWater / allWater * 100, 100f)
     }

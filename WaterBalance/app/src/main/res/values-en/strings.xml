@@ -19,6 +19,7 @@
     <string name="home_screen_drink">Drink</string>
     <string name="home_screen_remain">Remain</string>
     <string name="home_screen_value">%1$.2f oz</string>
+    <string name="home_screen_dialog_add_water">Add, oz</string>
     <string name="home_screen_dialog_reset_message">Do you want to clear data for today?</string>
     <string name="home_screen_dialog_reset_title">Reset statistics for today</string>
 

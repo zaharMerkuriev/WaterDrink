@@ -68,29 +68,6 @@ abstract class BaseActivity<Binding : ViewDataBinding> : AppCompatActivity() {
         binding.setVariable(BR.model, viewModel)
     }
 
-    fun showMessageDialog(messageId: Int) {
-        showMessageDialog(getString(messageId))
-    }
-
-    fun showMessageDialog(message: String) {
-        showMessageDialog(null, message)
-    }
-
-    fun showMessageDialog(
-        title: String?,
-        message: String,
-        @StringRes positiveButtonRes: Int = R.string.dialog_button_ok,
-        positiveAction: (() -> Unit)? = null
-    ) {
-        AlertDialog.Builder(this)
-            .apply {
-                setTitle(title)
-                setMessage(message)
-                setPositiveButton(positiveButtonRes) { _, _ -> positiveAction?.invoke() }
-                setCancelable(false)
-            }.show()
-    }
-
     fun showActionDialog(
         title: String?,
         message: String,

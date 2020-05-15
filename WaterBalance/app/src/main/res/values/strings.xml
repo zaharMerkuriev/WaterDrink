@@ -19,6 +19,7 @@
     <string name="home_screen_drink">Выпито</string>
     <string name="home_screen_remain">Осталось</string>
     <string name="home_screen_value">%1$.2f мл</string>
+    <string name="home_screen_dialog_add_water">Добавить, мл</string>
     <string name="home_screen_dialog_reset_title">Сброс статистики за сегодня</string>
     <string name="home_screen_dialog_reset_message">Вы точно хотите стереть данные за сегодня?</string>
 
