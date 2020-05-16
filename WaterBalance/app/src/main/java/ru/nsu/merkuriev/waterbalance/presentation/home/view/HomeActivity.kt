@@ -16,6 +16,7 @@ import ru.nsu.merkuriev.waterbalance.presentation.home.viewmodel.HomeViewModel
 import ru.nsu.merkuriev.waterbalance.presentation.receiver.WaterBalanceBroadcastReceiver
 import ru.nsu.merkuriev.waterbalance.utils.general.MetricsUtils
 import ru.nsu.merkuriev.waterbalance.utils.general.NotificationsUtils
+import ru.nsu.merkuriev.waterbalance.utils.general.TimeUtils
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.android.pure.AppNavigator
 
@@ -141,7 +142,11 @@ class HomeActivity : BaseToolbarActivity<ActivityHomeBinding>() {
 
         Toast.makeText(
             this,
-            getString(R.string.dialog_alarm_set, data.hour, data.minute),
+            getString(
+                R.string.dialog_alarm_set,
+                TimeUtils.formatTimeIntToString24(data.hour),
+                TimeUtils.formatTimeIntToString24(data.minute)
+            ),
             Toast.LENGTH_SHORT
         ).show()
     }

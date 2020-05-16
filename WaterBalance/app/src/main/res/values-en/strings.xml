@@ -5,7 +5,7 @@
     <!-- Dialog -->
     <string name="dialog_button_ok">Ok</string>
     <string name="dialog_button_cancel">Cancel</string>
-    <string name="dialog_alarm_set">Notification set to %1$d:%2$d</string>
+    <string name="dialog_alarm_set">Notification set to %1$s:%2$s</string>
 
     <!-- Common -->
     <string name="user_name">Name</string>
