@@ -28,10 +28,27 @@ class SharedPreferencesRepository(
     fun setMorningEnabled(value: Boolean) =
         prefs.edit().putBoolean(KEY_MORNING_ENABLED, value).apply()
 
+    fun getDayHour() = prefs.getInt(KEY_DAY_HOUR, 0)
+
+    fun setDayHour(value: Int) = prefs.edit().putInt(KEY_DAY_HOUR, value).apply()
+
+    fun getDayMinute() = prefs.getInt(KEY_DAY_MINUTE, 0)
+
+    fun setDayMinute(value: Int) = prefs.edit().putInt(KEY_DAY_MINUTE, value).apply()
+
+    fun isDayAlarmEnabled() = prefs.getBoolean(KEY_DAY_ENABLED, false)
+
+    fun setDayEnabled(value: Boolean) =
+        prefs.edit().putBoolean(KEY_DAY_ENABLED, value).apply()
+
     companion object {
         private const val KEY_MORNING_HOUR = "KEY_MORNING_HOUR"
         private const val KEY_MORNING_MINUTE = "KEY_MORNING_MINUTE"
         private const val KEY_MORNING_ENABLED = "KEY_MORNING_ENABLED"
+
+        private const val KEY_DAY_HOUR = "KEY_DAY_HOUR"
+        private const val KEY_DAY_MINUTE = "KEY_DAY_MINUTE"
+        private const val KEY_DAY_ENABLED = "KEY_DAY_ENABLED"
 
         private const val KEY_DRINK_WATER_VALUE = "KEY_DRINK_WATER_VALUE"
         private const val KEY_FIRST_OPEN = "KEY_FIRST_OPEN"

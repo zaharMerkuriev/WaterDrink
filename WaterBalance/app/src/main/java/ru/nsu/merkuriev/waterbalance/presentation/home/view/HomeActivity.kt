@@ -1,10 +1,9 @@
 package ru.nsu.merkuriev.waterbalance.presentation.home.view
 
-import android.app.AlarmManager
 import android.app.PendingIntent
 import android.app.TimePickerDialog
-import android.content.Context
 import android.content.Intent
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.observe
@@ -16,9 +15,9 @@ import ru.nsu.merkuriev.waterbalance.presentation.common.view.BaseToolbarActivit
 import ru.nsu.merkuriev.waterbalance.presentation.home.viewmodel.HomeViewModel
 import ru.nsu.merkuriev.waterbalance.presentation.receiver.WaterBalanceBroadcastReceiver
 import ru.nsu.merkuriev.waterbalance.utils.general.MetricsUtils
+import ru.nsu.merkuriev.waterbalance.utils.general.NotificationsUtils
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.android.pure.AppNavigator
-import java.util.*
 
 class HomeActivity : BaseToolbarActivity<ActivityHomeBinding>() {
 
@@ -44,6 +43,9 @@ class HomeActivity : BaseToolbarActivity<ActivityHomeBinding>() {
         binding.morningCheckbox.isChecked =
             viewModel.isNotificationTypeEnabled(NotificationType.MORNING)
 
+        binding.dayCheckbox.isChecked =
+            viewModel.isNotificationTypeEnabled(NotificationType.DAY)
+
         binding.fab.setOnClickListener {
             showAddWaterDialog()
         }
@@ -52,13 +54,16 @@ class HomeActivity : BaseToolbarActivity<ActivityHomeBinding>() {
             showTimePickerDialog(viewModel.getNotificationData(NotificationType.MORNING))
         }
 
-        binding.morningCheckbox.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (isChecked) {
-                setAlarm(viewModel.getNotificationData(NotificationType.MORNING))
-            } else {
-                cancelAlarm(NotificationType.MORNING)
-            }
-            viewModel.setNotificationTypeEnabled(isChecked, NotificationType.MORNING)
+        binding.dayTime.setOnClickListener {
+            showTimePickerDialog(viewModel.getNotificationData(NotificationType.DAY))
+        }
+
+        binding.morningCheckbox.setOnCheckedChangeListener { _, isChecked ->
+            handleCheckBoxChange(isChecked, NotificationType.MORNING)
+        }
+
+        binding.dayCheckbox.setOnCheckedChangeListener { _, isChecked ->
+            handleCheckBoxChange(isChecked, NotificationType.DAY)
         }
 
         viewModel.getDrinkWaterProportion().observe(this) {
@@ -69,6 +74,15 @@ class HomeActivity : BaseToolbarActivity<ActivityHomeBinding>() {
     override fun onResumeFragments() {
         super.onResumeFragments()
         viewModel.loadUser()
+    }
+
+    private fun handleCheckBoxChange(isChecked: Boolean, notificationType: NotificationType) {
+        if (isChecked) {
+            setAlarm(viewModel.getNotificationData(notificationType))
+        } else {
+            cancelAlarm(notificationType)
+        }
+        viewModel.setNotificationTypeEnabled(isChecked, notificationType)
     }
 
     private fun showResetWaterBalanceDialog() {
@@ -111,29 +125,22 @@ class HomeActivity : BaseToolbarActivity<ActivityHomeBinding>() {
     }
 
     private fun setAlarm(data: NotificationData) {
-        val intent = Intent(this, WaterBalanceBroadcastReceiver::class.java)
-        val pendingIntent =
-            PendingIntent.getBroadcast(this, data.notificationType.ordinal, intent, 0)
-        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        alarmManager.cancel(pendingIntent)
+        val pendingIntent = createPendingIntent(data.notificationType)
+        NotificationsUtils.setAlarm(this, pendingIntent, data.hour, data.minute)
 
-        val calendar = Calendar.getInstance()
-        calendar.timeInMillis = System.currentTimeMillis()
-        calendar.set(Calendar.HOUR_OF_DAY, data.hour)
-        calendar.set(Calendar.MINUTE, data.minute)
-        calendar.set(Calendar.SECOND, 0)
-        alarmManager.setRepeating(
-            AlarmManager.RTC_WAKEUP,
-            calendar.timeInMillis,
-            AlarmManager.INTERVAL_DAY,
-            pendingIntent
-        )
+        Toast.makeText(
+            this,
+            getString(R.string.dialog_alarm_set, data.hour, data.minute),
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
     private fun cancelAlarm(notificationType: NotificationType) {
+        NotificationsUtils.cancelAlarm(this, createPendingIntent(notificationType))
+    }
+
+    private fun createPendingIntent(notificationType: NotificationType): PendingIntent {
         val intent = Intent(this, WaterBalanceBroadcastReceiver::class.java)
-        val pendingIntent = PendingIntent.getBroadcast(this, notificationType.ordinal, intent, 0)
-        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        alarmManager.cancel(pendingIntent)
+        return PendingIntent.getBroadcast(this, notificationType.ordinal, intent, 0)
     }
 }

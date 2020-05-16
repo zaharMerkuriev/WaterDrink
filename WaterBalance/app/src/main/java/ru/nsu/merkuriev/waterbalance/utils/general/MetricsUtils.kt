@@ -9,17 +9,6 @@ object MetricsUtils {
     private const val MILLILITER_IN_OUNCE = 29.5735f
     private val ENGLISH_US_LOCALE = Locale.US
 
-    fun convertOunceToMilliliterIfNecessary(value: Float) =
-        if (isEnglishUsLocale(
-                getDeviceLocale()
-            )
-        ) {
-            value * MILLILITER_IN_OUNCE
-        } else {
-            value
-        }
-
-
     fun convertMilliliterToOunceIfNecessary(value: Float) =
         if (isEnglishUsLocale(
                 getDeviceLocale()

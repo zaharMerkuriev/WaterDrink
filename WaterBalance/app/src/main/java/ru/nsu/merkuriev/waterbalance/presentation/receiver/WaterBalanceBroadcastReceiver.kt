@@ -10,7 +10,6 @@ import android.os.Build
 import androidx.core.app.NotificationCompat
 import ru.nsu.merkuriev.waterbalance.R
 import ru.nsu.merkuriev.waterbalance.presentation.create_user.view.CreateUserActivity
-import java.security.SecureRandom
 
 
 class WaterBalanceBroadcastReceiver : BroadcastReceiver() {
@@ -24,7 +23,7 @@ class WaterBalanceBroadcastReceiver : BroadcastReceiver() {
             context,
             0,
             Intent(context, CreateUserActivity::class.java),
-            PendingIntent.FLAG_UPDATE_CURRENT
+            PendingIntent.FLAG_CANCEL_CURRENT
         )
 
         val manager =
@@ -44,6 +43,11 @@ class WaterBalanceBroadcastReceiver : BroadcastReceiver() {
             setAutoCancel(true)
         }
 
-        manager.notify(SecureRandom().nextInt(), builder.build())
+        manager.notify(NOTIFICATION_ID, builder.build())
+    }
+
+    companion object {
+
+        private const val NOTIFICATION_ID = 555
     }
 }

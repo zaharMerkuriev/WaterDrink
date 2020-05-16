@@ -36,12 +36,19 @@ class HomeViewModel @Inject constructor(
     private val morningMinute = MutableLiveData<String>()
     private var isMorningEnabled = false
 
+    private val dayHour = MutableLiveData<String>()
+    private val dayMinute = MutableLiveData<String>()
+    private var isDayEnabled = false
+
     fun getRemainWater(): LiveData<Float> = remainWater
     fun getDrinkWater(): LiveData<Float> = drinkWater
     fun getDrinkWaterProportion(): LiveData<Float> = drinkWaterProportion
 
     fun getMorningHour(): LiveData<String> = morningHour
     fun getMorningMinute(): LiveData<String> = morningMinute
+
+    fun getDayHour(): LiveData<String> = dayHour
+    fun getDayMinute(): LiveData<String> = dayMinute
 
     override fun initialize() {
         super.initialize()
@@ -56,6 +63,11 @@ class HomeViewModel @Inject constructor(
                 notificationType,
                 getMorningHour().value.toIntOrZero(),
                 getMorningMinute().value.toIntOrZero()
+            )
+            NotificationType.DAY -> NotificationData(
+                notificationType,
+                getDayHour().value.toIntOrZero(),
+                getDayMinute().value.toIntOrZero()
             )
             else -> NotificationData(
                 notificationType,
@@ -105,6 +117,11 @@ class HomeViewModel @Inject constructor(
                 prefsRepository.setMorningHour(hour)
                 prefsRepository.setMorningMinute(minute)
             }
+            NotificationType.DAY -> {
+                setHourAndMinute(dayHour, dayMinute, hour, minute)
+                prefsRepository.setDayHour(hour)
+                prefsRepository.setDayMinute(minute)
+            }
         }
     }
 
@@ -114,12 +131,17 @@ class HomeViewModel @Inject constructor(
                 isMorningEnabled = value
                 prefsRepository.setMorningEnabled(value)
             }
+            NotificationType.DAY -> {
+                isDayEnabled = value
+                prefsRepository.setDayEnabled(value)
+            }
         }
     }
 
     fun isNotificationTypeEnabled(notificationType: NotificationType) =
         when (notificationType) {
             NotificationType.MORNING -> isMorningEnabled
+            NotificationType.DAY -> isDayEnabled
             else -> isMorningEnabled
         }
 
@@ -141,6 +163,13 @@ class HomeViewModel @Inject constructor(
             NotificationType.MORNING
         )
         isMorningEnabled = prefsRepository.isMorningAlarmEnabled()
+
+        setTime(
+            prefsRepository.getDayHour(),
+            prefsRepository.getDayMinute(),
+            NotificationType.DAY
+        )
+        isDayEnabled = prefsRepository.isDayAlarmEnabled()
     }
 
     private fun calculateWaterBalance() {

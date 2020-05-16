@@ -123,6 +123,38 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/notifications" />
 
+                    <TextView
+                        android:id="@+id/day_title"
+                        style="@style/TextView.Home"
+                        android:layout_width="wrap_content"
+                        android:text="@string/home_screen_day"
+                        app:layout_constraintBottom_toBottomOf="@id/day_checkbox"
+                        app:layout_constraintEnd_toStartOf="@id/day_time"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/day_checkbox" />
+
+                    <TextView
+                        android:id="@+id/day_time"
+                        style="@style/TextView.Home.Time"
+                        android:layout_height="0dp"
+                        android:gravity="center_vertical"
+                        android:paddingStart="@dimen/text_medium"
+                        android:paddingEnd="@dimen/text_medium"
+                        android:text="@{@string/home_screen_time_value(model.dayHour, model.dayMinute)}"
+                        app:layout_constraintBottom_toBottomOf="@id/day_title"
+                        app:layout_constraintEnd_toStartOf="@id/day_checkbox"
+                        app:layout_constraintStart_toEndOf="@id/day_title"
+                        app:layout_constraintTop_toTopOf="@id/day_title"
+                        tools:text="10:30" />
+
+                    <CheckBox
+                        android:id="@+id/day_checkbox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/text_medium"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/morning_checkbox" />
+
                     <ru.nsu.merkuriev.waterbalance.presentation.common.custom.ProgressView
                         android:id="@+id/bottle"
                         android:layout_width="50dp"
