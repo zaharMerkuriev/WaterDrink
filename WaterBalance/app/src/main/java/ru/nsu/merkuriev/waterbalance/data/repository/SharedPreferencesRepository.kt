@@ -41,6 +41,19 @@ class SharedPreferencesRepository(
     fun setDayEnabled(value: Boolean) =
         prefs.edit().putBoolean(KEY_DAY_ENABLED, value).apply()
 
+    fun getEveningHour() = prefs.getInt(KEY_EVENING_HOUR, 0)
+
+    fun setEveningHour(value: Int) = prefs.edit().putInt(KEY_EVENING_HOUR, value).apply()
+
+    fun getEveningMinute() = prefs.getInt(KEY_EVENING_MINUTE, 0)
+
+    fun setEveningMinute(value: Int) = prefs.edit().putInt(KEY_EVENING_MINUTE, value).apply()
+
+    fun isEveningAlarmEnabled() = prefs.getBoolean(KEY_EVENING_ENABLED, false)
+
+    fun setEveningEnabled(value: Boolean) =
+        prefs.edit().putBoolean(KEY_EVENING_ENABLED, value).apply()
+
     companion object {
         private const val KEY_MORNING_HOUR = "KEY_MORNING_HOUR"
         private const val KEY_MORNING_MINUTE = "KEY_MORNING_MINUTE"
@@ -49,6 +62,10 @@ class SharedPreferencesRepository(
         private const val KEY_DAY_HOUR = "KEY_DAY_HOUR"
         private const val KEY_DAY_MINUTE = "KEY_DAY_MINUTE"
         private const val KEY_DAY_ENABLED = "KEY_DAY_ENABLED"
+
+        private const val KEY_EVENING_HOUR = "KEY_EVENING_HOUR"
+        private const val KEY_EVENING_MINUTE = "KEY_EVENING_MINUTE"
+        private const val KEY_EVENING_ENABLED = "KEY_EVENING_ENABLED"
 
         private const val KEY_DRINK_WATER_VALUE = "KEY_DRINK_WATER_VALUE"
         private const val KEY_FIRST_OPEN = "KEY_FIRST_OPEN"

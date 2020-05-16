@@ -155,6 +155,38 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/morning_checkbox" />
 
+                    <TextView
+                        android:id="@+id/evening_title"
+                        style="@style/TextView.Home"
+                        android:layout_width="wrap_content"
+                        android:text="@string/home_screen_evening"
+                        app:layout_constraintBottom_toBottomOf="@id/evening_checkbox"
+                        app:layout_constraintEnd_toStartOf="@id/evening_time"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/evening_checkbox" />
+
+                    <TextView
+                        android:id="@+id/evening_time"
+                        style="@style/TextView.Home.Time"
+                        android:layout_height="0dp"
+                        android:gravity="center_vertical"
+                        android:paddingStart="@dimen/text_medium"
+                        android:paddingEnd="@dimen/text_medium"
+                        android:text="@{@string/home_screen_time_value(model.eveningHour, model.eveningMinute)}"
+                        app:layout_constraintBottom_toBottomOf="@id/evening_title"
+                        app:layout_constraintEnd_toStartOf="@id/evening_checkbox"
+                        app:layout_constraintStart_toEndOf="@id/evening_title"
+                        app:layout_constraintTop_toTopOf="@id/evening_title"
+                        tools:text="10:30" />
+
+                    <CheckBox
+                        android:id="@+id/evening_checkbox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/text_medium"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/day_checkbox" />
+
                     <ru.nsu.merkuriev.waterbalance.presentation.common.custom.ProgressView
                         android:id="@+id/bottle"
                         android:layout_width="50dp"

@@ -46,6 +46,9 @@ class HomeActivity : BaseToolbarActivity<ActivityHomeBinding>() {
         binding.dayCheckbox.isChecked =
             viewModel.isNotificationTypeEnabled(NotificationType.DAY)
 
+        binding.eveningCheckbox.isChecked =
+            viewModel.isNotificationTypeEnabled(NotificationType.EVENING)
+
         binding.fab.setOnClickListener {
             showAddWaterDialog()
         }
@@ -58,12 +61,20 @@ class HomeActivity : BaseToolbarActivity<ActivityHomeBinding>() {
             showTimePickerDialog(viewModel.getNotificationData(NotificationType.DAY))
         }
 
+        binding.eveningTime.setOnClickListener {
+            showTimePickerDialog(viewModel.getNotificationData(NotificationType.EVENING))
+        }
+
         binding.morningCheckbox.setOnCheckedChangeListener { _, isChecked ->
             handleCheckBoxChange(isChecked, NotificationType.MORNING)
         }
 
         binding.dayCheckbox.setOnCheckedChangeListener { _, isChecked ->
             handleCheckBoxChange(isChecked, NotificationType.DAY)
+        }
+
+        binding.eveningCheckbox.setOnCheckedChangeListener { _, isChecked ->
+            handleCheckBoxChange(isChecked, NotificationType.EVENING)
         }
 
         viewModel.getDrinkWaterProportion().observe(this) {
