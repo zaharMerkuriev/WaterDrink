@@ -20,6 +20,7 @@
 
         <receiver android:name=".presentation.receiver.WaterBalanceNotificationBroadcastReceiver" />
         <receiver android:name=".presentation.receiver.AddWaterBroadcastReceiver" />
+        <receiver android:name=".presentation.receiver.ResetWaterBalanceBroadcastReceiver" />
     </application>
 
 </manifest>

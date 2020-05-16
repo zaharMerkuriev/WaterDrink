@@ -2,7 +2,6 @@ package ru.nsu.merkuriev.waterbalance.presentation.home.view
 
 import android.app.PendingIntent
 import android.app.TimePickerDialog
-import android.content.Intent
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
@@ -13,9 +12,10 @@ import ru.nsu.merkuriev.waterbalance.domain.model.NotificationData
 import ru.nsu.merkuriev.waterbalance.domain.model.NotificationType
 import ru.nsu.merkuriev.waterbalance.presentation.common.view.BaseToolbarActivity
 import ru.nsu.merkuriev.waterbalance.presentation.home.viewmodel.HomeViewModel
+import ru.nsu.merkuriev.waterbalance.presentation.receiver.ResetWaterBalanceBroadcastReceiver
 import ru.nsu.merkuriev.waterbalance.presentation.receiver.WaterBalanceNotificationBroadcastReceiver
+import ru.nsu.merkuriev.waterbalance.utils.general.AlarmManagerUtils
 import ru.nsu.merkuriev.waterbalance.utils.general.MetricsUtils
-import ru.nsu.merkuriev.waterbalance.utils.general.NotificationsUtils
 import ru.nsu.merkuriev.waterbalance.utils.general.TimeUtils
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.android.pure.AppNavigator
@@ -38,6 +38,8 @@ class HomeActivity : BaseToolbarActivity<ActivityHomeBinding>() {
 
     override fun initUI() {
         super.initUI()
+
+        setResetWaterBalanceAlarm()
 
         binding.morningCheckbox.isChecked =
             viewModel.isNotificationTypeEnabled(NotificationType.MORNING)
@@ -136,7 +138,7 @@ class HomeActivity : BaseToolbarActivity<ActivityHomeBinding>() {
 
     private fun setAlarm(data: NotificationData) {
         val pendingIntent = createPendingIntent(data.notificationType)
-        NotificationsUtils.setAlarm(this, pendingIntent, data.hour, data.minute)
+        AlarmManagerUtils.setNotificationAlarm(this, pendingIntent, data.hour, data.minute)
 
         Toast.makeText(
             this,
@@ -150,11 +152,18 @@ class HomeActivity : BaseToolbarActivity<ActivityHomeBinding>() {
     }
 
     private fun cancelAlarm(notificationType: NotificationType) {
-        NotificationsUtils.cancelAlarm(this, createPendingIntent(notificationType))
+        AlarmManagerUtils.cancelAlarm(this, createPendingIntent(notificationType))
     }
 
     private fun createPendingIntent(notificationType: NotificationType): PendingIntent {
-        val intent = Intent(this, WaterBalanceNotificationBroadcastReceiver::class.java)
+        val intent = WaterBalanceNotificationBroadcastReceiver.getIntent(this)
         return PendingIntent.getBroadcast(this, notificationType.ordinal, intent, 0)
+    }
+
+    private fun setResetWaterBalanceAlarm() {
+        val intent = ResetWaterBalanceBroadcastReceiver.getIntent(this)
+        val resetIntent = PendingIntent.getBroadcast(this, 666, intent, 0)
+
+        AlarmManagerUtils.setResetWaterBalanceAlarm(this, resetIntent)
     }
 }

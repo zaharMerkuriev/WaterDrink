@@ -10,6 +10,7 @@ import ru.nsu.merkuriev.waterbalance.presentation.create_user.view.CreateUserAct
 import ru.nsu.merkuriev.waterbalance.presentation.home.di.HomeModule
 import ru.nsu.merkuriev.waterbalance.presentation.home.view.HomeActivity
 import ru.nsu.merkuriev.waterbalance.presentation.receiver.AddWaterBroadcastReceiver
+import ru.nsu.merkuriev.waterbalance.presentation.receiver.ResetWaterBalanceBroadcastReceiver
 import ru.nsu.merkuriev.waterbalance.presentation.settings.di.SettingsModule
 import ru.nsu.merkuriev.waterbalance.presentation.settings.view.SettingsActivity
 
@@ -32,4 +33,7 @@ abstract class UIModule {
 
     @ContributesAndroidInjector
     abstract fun contributeAddWaterBroadcastReceiver(): AddWaterBroadcastReceiver
+
+    @ContributesAndroidInjector
+    abstract fun contributeResetWaterBalanceBroadcastReceiver(): ResetWaterBalanceBroadcastReceiver
 }

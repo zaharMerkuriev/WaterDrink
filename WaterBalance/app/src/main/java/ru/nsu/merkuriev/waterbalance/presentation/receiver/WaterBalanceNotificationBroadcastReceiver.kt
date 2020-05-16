@@ -76,6 +76,9 @@ class WaterBalanceNotificationBroadcastReceiver : BroadcastReceiver() {
 
         private const val NOTIFICATION_ID = 555
 
+        fun getIntent(context: Context) =
+            Intent(context, WaterBalanceNotificationBroadcastReceiver::class.java)
+
         fun cancelNotification(context: Context) {
             val manager =
                 (context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager)
