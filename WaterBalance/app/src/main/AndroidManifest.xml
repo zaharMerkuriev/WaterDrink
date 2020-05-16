@@ -18,7 +18,8 @@
         </activity>
         <activity android:name=".presentation.settings.view.SettingsActivity" />
 
-        <receiver android:name=".presentation.receiver.WaterBalanceBroadcastReceiver" />
+        <receiver android:name=".presentation.receiver.WaterBalanceNotificationBroadcastReceiver" />
+        <receiver android:name=".presentation.receiver.AddWaterBroadcastReceiver" />
     </application>
 
 </manifest>

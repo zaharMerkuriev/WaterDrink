@@ -2,6 +2,7 @@
     <string name="app_name" translatable="false">Water Balance</string>
     <string name="water_balance_channel" translatable="false">water_balance_channel</string>
 
+    <!-- Notifications -->
     <string name="notification_title">Время пить воду</string>
 
     <!-- Dialog -->

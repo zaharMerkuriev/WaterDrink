@@ -13,7 +13,7 @@ import ru.nsu.merkuriev.waterbalance.domain.model.NotificationData
 import ru.nsu.merkuriev.waterbalance.domain.model.NotificationType
 import ru.nsu.merkuriev.waterbalance.presentation.common.view.BaseToolbarActivity
 import ru.nsu.merkuriev.waterbalance.presentation.home.viewmodel.HomeViewModel
-import ru.nsu.merkuriev.waterbalance.presentation.receiver.WaterBalanceBroadcastReceiver
+import ru.nsu.merkuriev.waterbalance.presentation.receiver.WaterBalanceNotificationBroadcastReceiver
 import ru.nsu.merkuriev.waterbalance.utils.general.MetricsUtils
 import ru.nsu.merkuriev.waterbalance.utils.general.NotificationsUtils
 import ru.nsu.merkuriev.waterbalance.utils.general.TimeUtils
@@ -27,8 +27,6 @@ class HomeActivity : BaseToolbarActivity<ActivityHomeBinding>() {
     override fun getLayoutId(): Int = R.layout.activity_home
 
     override val viewModel: HomeViewModel by viewModels { viewModelFactory }
-
-    private val waterValues = arrayOf(100f, 200f, 400f)
 
     override fun initToolbar() {
         super.initToolbar()
@@ -107,7 +105,7 @@ class HomeActivity : BaseToolbarActivity<ActivityHomeBinding>() {
 
     private fun showAddWaterDialog() {
         val localizedWaterValues = arrayListOf<String>().apply {
-            addAll(waterValues.map {
+            addAll(HomeViewModel.waterValuesToAdd.map {
                 MetricsUtils.convertMilliliterToOunceIfNecessary(it).toString()
             })
         }
@@ -116,7 +114,7 @@ class HomeActivity : BaseToolbarActivity<ActivityHomeBinding>() {
             .apply {
                 setTitle(getString(R.string.home_screen_dialog_add_water))
                 setItems(localizedWaterValues.toTypedArray()) { _, which ->
-                    viewModel.addDrinkWater(waterValues[which])
+                    viewModel.addDrinkWater(HomeViewModel.waterValuesToAdd[which])
                 }
             }.show()
     }
@@ -156,7 +154,7 @@ class HomeActivity : BaseToolbarActivity<ActivityHomeBinding>() {
     }
 
     private fun createPendingIntent(notificationType: NotificationType): PendingIntent {
-        val intent = Intent(this, WaterBalanceBroadcastReceiver::class.java)
+        val intent = Intent(this, WaterBalanceNotificationBroadcastReceiver::class.java)
         return PendingIntent.getBroadcast(this, notificationType.ordinal, intent, 0)
     }
 }

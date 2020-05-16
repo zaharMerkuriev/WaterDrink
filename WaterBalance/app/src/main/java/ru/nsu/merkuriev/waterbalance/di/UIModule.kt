@@ -9,6 +9,7 @@ import ru.nsu.merkuriev.waterbalance.presentation.create_user.di.CreateUserModul
 import ru.nsu.merkuriev.waterbalance.presentation.create_user.view.CreateUserActivity
 import ru.nsu.merkuriev.waterbalance.presentation.home.di.HomeModule
 import ru.nsu.merkuriev.waterbalance.presentation.home.view.HomeActivity
+import ru.nsu.merkuriev.waterbalance.presentation.receiver.AddWaterBroadcastReceiver
 import ru.nsu.merkuriev.waterbalance.presentation.settings.di.SettingsModule
 import ru.nsu.merkuriev.waterbalance.presentation.settings.view.SettingsActivity
 
@@ -28,4 +29,7 @@ abstract class UIModule {
     @ActivityScope
     @ContributesAndroidInjector(modules = [SettingsModule::class])
     abstract fun contributeSettingsActivity(): SettingsActivity
+
+    @ContributesAndroidInjector
+    abstract fun contributeAddWaterBroadcastReceiver(): AddWaterBroadcastReceiver
 }

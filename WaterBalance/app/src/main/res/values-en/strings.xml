@@ -2,6 +2,9 @@
 <resources>
     <string name="app_name">Water Balance</string>
 
+    <!-- Notifications -->
+    <string name="notification_title">Time to drink water</string>
+
     <!-- Dialog -->
     <string name="dialog_button_ok">Ok</string>
     <string name="dialog_button_cancel">Cancel</string>
@@ -37,5 +40,4 @@
     <string name="home_screen_morning">Morning</string>
     <string name="home_screen_evening">Evening</string>
     <string name="home_screen_day">Day</string>
-    <string name="notification_title">Time to drink water</string>
 </resources>

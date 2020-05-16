@@ -208,6 +208,8 @@ class HomeViewModel @Inject constructor(
     }
 
     companion object {
+        val waterValuesToAdd = arrayOf(100f, 200f, 400f)
+
         private const val WEIGHT_COEFFICIENT = 30f
     }
 }

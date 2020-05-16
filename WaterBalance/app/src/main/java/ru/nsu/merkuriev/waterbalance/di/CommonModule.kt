@@ -22,7 +22,7 @@ class CommonModule {
     @Provides
     @Singleton
     fun provideSharedPreferences(context: Context) =
-        context.getSharedPreferences("water_balance_prefs", Context.MODE_PRIVATE)
+        context.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
 
     @Provides
     @Singleton
@@ -37,4 +37,8 @@ class CommonModule {
     @Provides
     @Singleton
     fun provideUserRepository(dataBase: WaterBalanceDataBase) = UserRepository(dataBase)
+
+    companion object {
+        private const val SHARED_PREFERENCES_NAME = "water_balance_prefs"
+    }
 }
