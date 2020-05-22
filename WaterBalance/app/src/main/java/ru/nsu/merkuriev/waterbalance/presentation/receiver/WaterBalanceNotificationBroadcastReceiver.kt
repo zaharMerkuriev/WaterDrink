@@ -1,6 +1,7 @@
 package ru.nsu.merkuriev.waterbalance.presentation.receiver
 
 import android.app.Notification
+import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.BroadcastReceiver
@@ -32,6 +33,14 @@ class WaterBalanceNotificationBroadcastReceiver : BroadcastReceiver() {
             setContentTitle(context.getString(R.string.notification_title))
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
                 priority = Notification.PRIORITY_HIGH
+            } else {
+                manager.createNotificationChannel(
+                    NotificationChannel(
+                        context.getString(R.string.water_balance_channel),
+                        context.getString(R.string.app_name),
+                        NotificationManager.IMPORTANCE_HIGH
+                    )
+                )
             }
             setSmallIcon(R.mipmap.ic_launcher)
             setDefaults(Notification.DEFAULT_SOUND)

@@ -18,15 +18,7 @@ object AlarmManagerUtils {
     }
 
     fun setResetWaterBalanceAlarm(context: Context, intent: PendingIntent) {
-        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        alarmManager.cancel(intent)
-
-        alarmManager.setRepeating(
-            AlarmManager.RTC_WAKEUP,
-            TimeUtils.getMidNightCalendar().timeInMillis,
-            AlarmManager.INTERVAL_DAY,
-            intent
-        )
+        setNotificationAlarm(context, intent, 0, 0)
     }
 
     fun cancelAlarm(context: Context, intent: PendingIntent) {

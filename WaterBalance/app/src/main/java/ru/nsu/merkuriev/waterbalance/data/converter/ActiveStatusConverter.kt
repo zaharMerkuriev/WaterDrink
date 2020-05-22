@@ -12,10 +12,10 @@ class ActiveStatusConverter {
     @TypeConverter
     fun toActiveType(value: Int): ActiveType {
         return when (value) {
-            0 -> ActiveType.NO
-            1 -> ActiveType.LAZY
-            2 -> ActiveType.MIDDLE
-            3 -> ActiveType.ACTIVE
+            ActiveType.NO.ordinal -> ActiveType.NO
+            ActiveType.LAZY.ordinal -> ActiveType.LAZY
+            ActiveType.MIDDLE.ordinal -> ActiveType.MIDDLE
+            ActiveType.ACTIVE.ordinal -> ActiveType.ACTIVE
             else -> ActiveType.NO
         }
     }
